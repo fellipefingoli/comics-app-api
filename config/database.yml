@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: postgres
+  password: <%= ENV['COMIC_APP_DATABASE_PASSWORD'] %>
+  username: postgres
+
+development:
+  <<: *default
+  database: comic_app_development
+
+
+test:
+  <<: *default
+  database: comic_app_test
+
+production:
+  <<: *default
+  database: comic_app_production
+  username: comic_app

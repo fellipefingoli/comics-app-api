@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        APP_PATH: "${APP_PATH}"
+        RAILS_PORT: "${RAILS_PORT}"
+    depends_on:
+      - postgres
+    command:
+      - /bin/sh
+      - -c
+      - |
+        bundle exec rake db:migrate
+        bundle exec rails s -p ${RAILS_PORT} -b ${RAILS_BIND}
+    env_file:
+      - '.env'
+    ports:
+      - "${RAILS_PORT}:${RAILS_PORT}"
+    volumes:
+      - type: volume
+        source: app-data
+        target: "${APP_PATH}/public"
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "${COMIC_APP_DATABASE_PASSWORD}"
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+  app-data:
