@@ -5,8 +5,8 @@ services:
     build:
       context: .
       args:
-        APP_PATH: "${APP_PATH}"
-        RAILS_PORT: "${RAILS_PORT}"
+        APP_PATH: ${APP_PATH}
+        RAILS_PORT: ${RAILS_PORT}
     depends_on:
       - postgres
     command:
@@ -20,9 +20,7 @@ services:
     ports:
       - "${RAILS_PORT}:${RAILS_PORT}"
     volumes:
-      - type: volume
-        source: app-data
-        target: "${APP_PATH}/public"
+      - .:${APP_PATH}
   postgres:
     image: postgres
     environment:
@@ -30,8 +28,4 @@ services:
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     volumes:
-      - db-data:/var/lib/postgresql/data
-
-volumes:
-  db-data:
-  app-data:
+      - ./tmp/db:/var/lib/postgresql/data
