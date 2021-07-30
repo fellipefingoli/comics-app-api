@@ -9,7 +9,9 @@ gem 'bootsnap', '~> 1.7', require: false
 
 group :development, :test do
   gem 'pry-rails', '~> 0.3.9'
-  gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
+  gem 'rspec-rails', '~> 5.0'
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'faker', '~> 2.18'
 end
 
 group :development do
