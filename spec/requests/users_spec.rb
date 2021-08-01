@@ -81,7 +81,7 @@ RSpec.describe 'Users', type: :request do
       let(:params) do
         {
           email: user.email,
-          password: 'some_strong_password',
+          password: 'some_strong_password'
         }
       end
 
@@ -99,11 +99,11 @@ RSpec.describe 'Users', type: :request do
       end
     end
 
-    context 'when credentials are valid' do
+    context 'when credentials are invalid' do
       let(:params) do
         {
           email: user.email,
-          password: 'wrong_password',
+          password: 'wrong_password'
         }
       end
 

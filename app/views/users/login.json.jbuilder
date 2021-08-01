@@ -5,4 +5,3 @@ if session[:user_id].present?
     json.email @user.email
   end
 end
-
