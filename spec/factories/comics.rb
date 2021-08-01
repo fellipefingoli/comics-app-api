@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :comic do
     title { Faker::Superhero.name }
@@ -5,6 +7,6 @@ FactoryBot.define do
     price { 2.99 }
     thumbnail { 'http://comics.com/someimagehere.jpg' }
     image { 'http://comics.com/someimagehere.jpg' }
-    date { Date.new }
+    date { Time.zone.today }
   end
 end
