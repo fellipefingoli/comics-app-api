@@ -95,6 +95,7 @@ RSpec.describe 'Users', type: :request do
 
       it 'creates a new user session' do
         expect(session[:user_id]).to be_present
+        expect(response).to have_http_status(:ok)
         expect(response.body).to eq(success_response_body.to_json)
       end
     end
@@ -109,8 +110,23 @@ RSpec.describe 'Users', type: :request do
 
       it 'does not creates a new user session' do
         expect(session[:user_id]).to be_nil
+        expect(response).to have_http_status(:unauthorized)
         expect(response.body).to eq('{}')
       end
+    end
+  end
+
+  describe 'GET /logout' do
+    let(:user) { create(:user) }
+
+    before do
+      get '/users/logout', headers: headers
+    end
+
+    it do
+      expect(session[:user_id]).to be_nil
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to eq('{}')
     end
   end
 end

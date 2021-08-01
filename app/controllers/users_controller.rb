@@ -22,6 +22,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def logout
+    session[:user_id] = nil
+    render :logout, status: :ok
+  end
+
   private
 
   def user_params
