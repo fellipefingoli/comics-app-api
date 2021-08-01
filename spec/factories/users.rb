@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.unique.email }
+    password { 'some_strong_password' }
+    password_confirmation { 'some_strong_password' }
+  end
+end

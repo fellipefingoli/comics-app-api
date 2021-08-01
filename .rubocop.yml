@@ -1,0 +1,15 @@
+require: rubocop-rails
+require: rubocop-rspec
+
+#Multiple expectations is acceptable for performance reasons in some contexts, see https://www.betterspecs.org/
+RSpec/MultipleExpectations:
+  Enabled: false
+
+#It's normal to have long blocks in specs
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
+#No time for documentation for a while
+Style/Documentation:
+  Enabled: false
