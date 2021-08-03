@@ -2,10 +2,10 @@
 
 module Marvel
   class Connection
-    def self.request(resource_name)
+    def self.request
       RestClient::Resource.new(
         ENV['MARVEL_DEFAULT_URL']
-      )[resource_name]
+      )
     end
   end
 end

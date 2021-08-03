@@ -6,7 +6,6 @@ FactoryBot.define do
     description { Faker::Superhero.power }
     price { 2.99 }
     thumbnail { 'http://comics.com/someimagehere.jpg' }
-    image { 'http://comics.com/someimagehere.jpg' }
     date { Time.zone.today }
   end
 end
