@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the Comic App API documentation
 
-Things you may want to cover:
+The necessary configuration are in the `.env.dafault` file. Put all your credentials there and rename the file to just `.env`.
 
-* Ruby version
+*****
 
-* System dependencies
+To start this project you need the docker-compose. Start it with:
 
-* Configuration
+```
+  docker-compose up --build
+```
 
-* Database creation
+That's it, the project must run now in `http://localhost:3000` url.
 
-* Database initialization
+*****
 
-* How to run the test suite
+To run the tests, in other terminal run:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+  docker-compose run web rspec
+```
 
-* Deployment instructions
+*****
 
-* ...
+And that's all folks!
