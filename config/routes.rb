@@ -7,4 +7,6 @@ Rails.application.routes.draw do
       get 'logout'
     end
   end
+
+  resources :comics, only: [:index]
 end
