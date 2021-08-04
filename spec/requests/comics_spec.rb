@@ -22,10 +22,14 @@ RSpec.describe 'Comics', type: :request do
         expect(response_body['comics']).to be_an_instance_of(Array)
         expect(response_body['comics'].first).to have_key('id')
         expect(response_body['comics'].first).to have_key('title')
+      end
+
+      it 'returns the right attributes' do
         expect(response_body['comics'].first).to have_key('description')
         expect(response_body['comics'].first).to have_key('price')
         expect(response_body['comics'].first).to have_key('thumbnail')
         expect(response_body['comics'].first).to have_key('date')
+        expect(response_body['comics'].first).to have_key('liked')
       end
     end
 
