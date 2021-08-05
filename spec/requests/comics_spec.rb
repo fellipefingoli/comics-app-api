@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe 'Comics', type: :request do
   let(:headers) { { 'ACCEPT' => 'application/json' } }
+  let(:response_body) { JSON.parse(response.body) }
 
   describe 'GET /index' do
     let(:params) { { format: 'comic', limit: 25, orderBy: '-onsaleDate' } }
-    let(:response_body) { JSON.parse(response.body) }
 
     context 'when request is successful' do
       before do
@@ -40,6 +40,61 @@ RSpec.describe 'Comics', type: :request do
       end
 
       it 'returns a error message' do
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response_body['error']['code']).to eq(500)
+        expect(response_body['error']['message']).to eq('error')
+      end
+    end
+  end
+
+  describe 'PUT /like' do
+    before do
+      allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { user_id: user.id } }
+    end
+
+    context 'when user like a comic' do
+      let(:params) { { liked: true } }
+      let(:user) { create(:user) }
+
+      before do
+        put "/comics/1/like", params: params, headers: headers
+      end
+
+      it 'create a new user_marvel_comics with like true' do
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+        expect(response).to have_http_status(:ok)
+        expect(response_body['comic']['id']).to eq(1)
+        expect(response_body['comic']['liked']).to be_truthy
+      end
+    end
+
+    context 'when user dislikes a comic' do
+      let(:params) { { liked: false } }
+      let(:user) { create(:user) }
+
+      before do
+        put "/comics/1/like", params: params, headers: headers
+      end
+
+      it 'create a new user_marvel_comics with like true' do
+        expect(response.content_type).to eq('application/json; charset=utf-8')
+        expect(response).to have_http_status(:ok)
+        expect(response_body['comic']['id']).to eq(1)
+        expect(response_body['comic']['liked']).to be_falsey
+      end
+    end
+
+    context 'when request raise an error' do
+      let(:params) { { liked: true } }
+      let(:user) { create(:user) }
+
+      before do
+        allow_any_instance_of(UserMarvelComic).to receive(:update!).and_raise(ActiveRecord::ActiveRecordError, 'error')
+        put "/comics/1/like", params: params, headers: headers
+      end
+
+      it 'create a new user_marvel_comics with like true' do
         expect(response.content_type).to eq('application/json; charset=utf-8')
         expect(response).to have_http_status(:internal_server_error)
         expect(response_body['error']['code']).to eq(500)

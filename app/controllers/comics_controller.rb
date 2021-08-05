@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class ComicsController < ApplicationController
-  before_action :find_user, only: [:index]
+  include Authorizable
+
+  before_action :authorize, only: [:like]
+  before_action :find_user_marvel_comic, only: [:like]
 
   def index
     @comics_liked = ComicsService.fetch(query_params, @user)
@@ -11,13 +14,21 @@ class ComicsController < ApplicationController
     render :index, status: :internal_server_error
   end
 
+  def like
+    @user_marvel_comic.update!({ liked: params[:liked] })
+    render :like, status: :ok
+  rescue StandardError => e
+    @error = { code: 500, message: e.message }
+    render :like, status: :internal_server_error
+  end
+
   private
 
   def query_params
     params.permit(:format, :limit, :offset, :orderBy)
   end
 
-  def find_user
-    @user = User.find_by(session[:user_id])
+  def find_user_marvel_comic
+    @user_marvel_comic = UserMarvelComic.find_or_create_by({ user: @user, comic_id: params[:id] })
   end
 end

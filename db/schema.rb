@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,27 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_804_010_005) do
+ActiveRecord::Schema.define(version: 2021_08_04_010005) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'user_marvel_comics', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.integer 'comic_id', null: false
-    t.boolean 'liked', default: false, null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['comic_id'], name: 'index_user_marvel_comics_on_comic_id'
-    t.index ['user_id'], name: 'index_user_marvel_comics_on_user_id'
+  create_table "user_marvel_comics", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "comic_id", null: false
+    t.boolean "liked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comic_id"], name: "index_user_marvel_comics_on_comic_id"
+    t.index ["user_id"], name: "index_user_marvel_comics_on_user_id"
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.string 'password_digest'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['email'], name: 'index_users_on_email'
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email"
   end
 
-  add_foreign_key 'user_marvel_comics', 'users'
+  add_foreign_key "user_marvel_comics", "users"
 end

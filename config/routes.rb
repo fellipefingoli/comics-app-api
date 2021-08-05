@@ -8,5 +8,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comics, only: [:index]
+  resources :comics, only: [:index] do
+    member do
+      put 'like'
+    end
+  end
 end
