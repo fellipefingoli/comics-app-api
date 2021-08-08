@@ -21,6 +21,9 @@ services:
       - "${RAILS_PORT}:${RAILS_PORT}"
     volumes:
       - .:${APP_PATH}
+    stdin_open: true
+    tty: true
+
   postgres:
     image: postgres
     environment:

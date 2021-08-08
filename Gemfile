@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.11'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.4'
 gem 'rails', '~> 6.1.4'
+gem 'rack-cors', '~> 1.1'
 gem 'rest-client', '~> 2.1'
 
 group :development, :test do

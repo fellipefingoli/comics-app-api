@@ -54,7 +54,7 @@ RSpec.describe 'Comics', type: :request do
     end
 
     context 'when user like a comic' do
-      let(:params) { { liked: true } }
+      let(:params) { { liked: true, type: 'marvel' } }
       let(:user) { create(:user) }
 
       before do
@@ -66,6 +66,7 @@ RSpec.describe 'Comics', type: :request do
         expect(response).to have_http_status(:ok)
         expect(response_body['comic']['id']).to eq(1)
         expect(response_body['comic']['liked']).to be_truthy
+        expect(response_body['comic']['type']).to eq('marvel')
       end
     end
 
@@ -82,6 +83,7 @@ RSpec.describe 'Comics', type: :request do
         expect(response).to have_http_status(:ok)
         expect(response_body['comic']['id']).to eq(1)
         expect(response_body['comic']['liked']).to be_falsey
+        expect(response_body['comic']['type']).to eq('marvel')
       end
     end
 

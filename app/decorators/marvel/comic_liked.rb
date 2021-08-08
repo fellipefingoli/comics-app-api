@@ -10,7 +10,7 @@ module Marvel
     end
 
     def liked
-      @liked ||= user.try(:user_marvel_comics).try(:where, { comic_id: comic.id }).try(:liked) || false
+      @liked ||= user.try(:user_marvel_comics).try(:find_by, { comic_id: comic.id }).try(:liked) || false
     end
 
     def type

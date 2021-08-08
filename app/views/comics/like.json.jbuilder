@@ -4,6 +4,7 @@ if @user_marvel_comic.present?
   json.comic do
     json.id @user_marvel_comic.comic_id
     json.liked @user_marvel_comic.liked
+    json.type @user_marvel_comic.type
   end
 end
 
