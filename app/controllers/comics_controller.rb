@@ -7,7 +7,7 @@ class ComicsController < ApplicationController
   before_action :find_user_marvel_comic, only: [:like]
 
   def index
-    @comics_liked = ComicsService.fetch(query_params, @user)
+    @comics_liked = ComicsService.fetch_marvel_comics(query_params, @user)
     render :index, status: :ok
   rescue StandardError => e
     @error = { code: 500, message: e.message }
@@ -22,10 +22,18 @@ class ComicsController < ApplicationController
     render :like, status: :internal_server_error
   end
 
+  def character_comics
+    @comics_liked = ComicsService.fetch_character_comics(query_params, @user)
+    render :character_comics, status: :ok
+  rescue StandardError => e
+    @error = { code: 500, message: e.message }
+    render :index, status: :internal_server_error
+  end
+
   private
 
   def query_params
-    params.permit(:format, :limit, :offset, :orderBy)
+    params.permit(:format, :limit, :offset, :orderBy, :nameStartsWith)
   end
 
   def find_user_marvel_comic

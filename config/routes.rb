@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   end
 
   resources :comics, only: [:index] do
+    collection do
+      get 'character_comics'
+    end
+
     member do
       put 'like'
     end
